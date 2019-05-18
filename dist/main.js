@@ -147,7 +147,9 @@ return mapboxgl;
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var mapbox_gl__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mapbox-gl */ "./node_modules/mapbox-gl/dist/mapbox-gl.js");
 /* harmony import */ var mapbox_gl__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(mapbox_gl__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _marker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./marker */ "./src/marker.js");
 console.log('Hello from JavaScript');
+
 
 
 
@@ -168,6 +170,55 @@ marker.style.height = '39px';
 marker.style.backgroundImage = 'url(http://i.imgur.com/WbMOfMl.png)'
 
 new mapbox_gl__WEBPACK_IMPORTED_MODULE_0___default.a.Marker(marker).setLngLat([-74.009, 40.705]).addTo(map)
+
+const getLoc = async function() {
+  const getHotels =  fetch(`https://trip-planner-fsa.herokuapp.com/api/hotels/5`)
+  const getRests =  fetch(` https://trip-planner-fsa.herokuapp.com/api/restaurants/5`)
+  const getActiv = fetch(` https://trip-planner-fsa.herokuapp.com/api/activities/5`)
+
+  const allLoc = [getHotelsJson, getRestsJson, getActivJson]
+  const actualLoc = await Promise.all(allLoc)
+
+
+  console.log(actualLoc[0], actualLoc[1], actualLoc[2])
+}
+getLoc()
+
+
+/***/ }),
+
+/***/ "./src/marker.js":
+/*!***********************!*\
+  !*** ./src/marker.js ***!
+  \***********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var mapbox_gl__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mapbox-gl */ "./node_modules/mapbox-gl/dist/mapbox-gl.js");
+/* harmony import */ var mapbox_gl__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(mapbox_gl__WEBPACK_IMPORTED_MODULE_0__);
+
+
+const iconURLs = {
+  hotels: "http://i.imgur.com/D9574Cu.png",
+  restaurants: "http://i.imgur.com/cqR6pUI.png",
+  activities: "http://i.imgur.com/WbMOfMl.png"
+};
+
+const buildMarker = function(category, coordinates) {
+  const newMarkerDiv = document.createElement('div')
+  newMarkerDiv.style.backgroundSize = 'contain';
+  newMarkerDiv.style.width = '32px';
+  newMarkerDiv.style.height = '37px';
+  newMarkerDiv.style.backgroundImage = `url(${iconURLs[category]})`;
+  return new mapbox_gl__WEBPACK_IMPORTED_MODULE_0___default.a.Marker(newMarkerDiv).setLngLat(coordinates);
+};
+
+
+/* harmony default export */ __webpack_exports__["default"] = (buildMarker);
+
+
 
 /***/ })
 

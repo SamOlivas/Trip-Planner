@@ -7,7 +7,14 @@ const iconURLs = {
 };
 
 const buildMarker = function(category, coordinates) {
-  
+  const newMarkerDiv = document.createElement('div')
+  newMarkerDiv.style.backgroundSize = 'contain';
+  newMarkerDiv.style.width = '32px';
+  newMarkerDiv.style.height = '37px';
+  newMarkerDiv.style.backgroundImage = `url(${iconURLs[category]})`;
+  return new mapboxgl.Marker(newMarkerDiv).setLngLat(coordinates);
 };
 
+
 export default buildMarker
+
